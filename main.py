@@ -29,7 +29,7 @@ def run_pipeline():
     )
 
     summary = summarize_reviews(
-        " ".join(df["cleaned_review"].tolist()[:20])
+        " ".join(df["review_text"].tolist()[:20])
     )
 
     df.to_csv(PROCESSED_DATA, index=False)

@@ -1,3 +1,14 @@
+---
+title: AI Customer Review Analyzer
+emoji: 📊
+colorFrom: purple
+colorTo: indigo
+sdk: streamlit
+sdk_version: 1.56.0
+app_file: app.py
+pinned: false
+---
+
 # AI Customer Review Analyzer
 
 End-to-end NLP system for analyzing customer reviews using sentiment analysis,

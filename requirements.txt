@@ -3,7 +3,7 @@ numpy
 scikit-learn
 nltk
 gensim
-transformers
+transformers<5
 torch
 matplotlib
 seaborn

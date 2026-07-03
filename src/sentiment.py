@@ -1,7 +1,7 @@
 from transformers import pipeline
 import streamlit as st
 
-@st.cache_resource
+@st.cache_resource(show_spinner=False)
 def load_sentiment_model():
     return pipeline("sentiment-analysis")
 
