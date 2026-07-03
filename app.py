@@ -1,6 +1,13 @@
+# Mock torch to prevent Hugging Face transformers from raising NameError when PyTorch is not installed
+import builtins
+class DummyTorch:
+    pass
+builtins.torch = DummyTorch()
+
 import streamlit as st
 import pandas as pd
 import re
+from src.preprocess import clean_text
 from src.sentiment import analyze_sentiment
 from src.topics import topic_modeling
 from src.summarize import summarize_reviews

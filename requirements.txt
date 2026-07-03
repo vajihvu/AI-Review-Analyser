@@ -4,7 +4,8 @@ scikit-learn
 nltk
 gensim
 transformers<5
-torch
+tensorflow
+tf-keras
 matplotlib
 seaborn
 streamlit

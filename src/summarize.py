@@ -3,7 +3,7 @@ import streamlit as st
 
 @st.cache_resource(show_spinner=False)
 def load_summarizer():
-    return pipeline("summarization", model="facebook/bart-large-cnn")
+    return pipeline("summarization", model="facebook/bart-large-cnn", framework="tf", dtype=None)
 
 def summarize_reviews(text):
     summarizer = load_summarizer()
