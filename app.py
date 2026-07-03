@@ -42,33 +42,35 @@ if st.button("🔄 Shuffle Samples"):
 
 if st.button("Run Analysis"):
 
-    # Initialize sentiment column
-    df["sentiment"] = None
+    # Create a copy of the current sample dataframe to store and display results
+    sample_df = st.session_state.sample_df.copy()
 
     with st.spinner("Running sentiment analysis..."):
-        df.loc[:29, "sentiment"] = analyze_sentiment(
-            df.loc[:29, "cleaned_review"].tolist()
+        sample_df["sentiment"] = analyze_sentiment(
+            sample_df["cleaned_review"].tolist()
         )
         st.success("Sentiment analysis completed")
 
     st.subheader("Sentiment Results")
     st.dataframe(
-        df.loc[:29, ["cleaned_review", "sentiment"]]
+        sample_df[["cleaned_review", "sentiment"]]
     )
 
     with st.spinner("Extracting topics..."):
+        # We extract topics from a larger slice of the dataset so that the topics are meaningful/stable
         topics = topic_modeling(
             df["cleaned_review"].dropna().tolist()[:500]
         )
-        st.subheader("Key Topics Extracted")
+        st.subheader("Key Topics Extracted (from dataset)")
         for idx, topic_str in topics:
             words = re.findall(r'"([^"]+)"', topic_str)
             words = [w for w in words if w != "br"][:5]
             st.markdown(f"**Topic #{idx + 1}:** " + " ".join([f"`{w}`" for w in words]))
 
     with st.spinner("Generating summary..."):
+        # Generate summary specifically for the active sample reviews
         summary = summarize_reviews(
-            " ".join(df["review_text"].tolist()[:20])
+            " ".join(sample_df["review_text"].tolist())
         )
-        st.subheader("Abstractive Review Summary")
+        st.subheader("Abstractive Review Summary (for current samples)")
         st.write(summary)
