@@ -49,7 +49,6 @@ if st.button("🔄 Shuffle Samples"):
 
 if st.button("Run Analysis"):
 
-    # Create a copy of the current sample dataframe to store and display results
     sample_df = st.session_state.sample_df.copy()
 
     with st.spinner("Running sentiment analysis..."):
@@ -75,7 +74,6 @@ if st.button("Run Analysis"):
             st.markdown(f"**Topic #{idx + 1}:** " + " ".join([f"`{w}`" for w in words]))
 
     with st.spinner("Generating summary..."):
-        # Generate summary specifically for the active sample reviews
         summary = summarize_reviews(
             " ".join(sample_df["review_text"].tolist())
         )
