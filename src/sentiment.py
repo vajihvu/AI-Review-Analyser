@@ -1,9 +1,12 @@
-from transformers import pipeline
+from transformers import AutoTokenizer, TFAutoModelForSequenceClassification, pipeline
 import streamlit as st
 
 @st.cache_resource(show_spinner=False)
 def load_sentiment_model():
-    return pipeline("sentiment-analysis", framework="tf", dtype=None)
+    model_name = "distilbert/distilbert-base-uncased-finetuned-sst-2-english"
+    tokenizer = AutoTokenizer.from_pretrained(model_name)
+    model = TFAutoModelForSequenceClassification.from_pretrained(model_name, use_safetensors=False)
+    return pipeline("sentiment-analysis", model=model, tokenizer=tokenizer)
 
 def analyze_sentiment(texts):
     model = load_sentiment_model()

@@ -1,9 +1,12 @@
-from transformers import pipeline
+from transformers import AutoTokenizer, TFBartForConditionalGeneration, pipeline
 import streamlit as st
 
 @st.cache_resource(show_spinner=False)
 def load_summarizer():
-    return pipeline("summarization", model="facebook/bart-large-cnn", framework="tf", dtype=None)
+    model_name = "facebook/bart-large-cnn"
+    tokenizer = AutoTokenizer.from_pretrained(model_name)
+    model = TFBartForConditionalGeneration.from_pretrained(model_name, use_safetensors=False)
+    return pipeline("summarization", model=model, tokenizer=tokenizer)
 
 def summarize_reviews(text):
     summarizer = load_summarizer()

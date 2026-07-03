@@ -1,9 +1,3 @@
-# Mock torch to prevent Hugging Face transformers from raising NameError when PyTorch is not installed
-import builtins
-class DummyTorch:
-    pass
-builtins.torch = DummyTorch()
-
 import os
 from src.preprocess import preprocess
 from src.sentiment import analyze_sentiment
